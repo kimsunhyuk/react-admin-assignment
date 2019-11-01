@@ -193,7 +193,4 @@ function ProductApp() {
   );
 }
 
-function tmp(){
-  return 1;
-}
 export default ProductApp;
