@@ -31,8 +31,11 @@ class InputForm extends React.Component {
   render() {
     return (
       <form>
-        <input type="text" placeholder="Input Champ Name..." />
-        <button>submit</button>
+        <input
+          type="text"
+          placeholder="Input Champ Name..."
+          onSubmit={this.handleChampSubmit}
+          />
       </form>
     );
   }
@@ -40,7 +43,6 @@ class InputForm extends React.Component {
 
 class ChampRow extends React.Component {
   render() {
-    // product는 props를 통해 parent로부터 전달되므로 state가 아님
     const champ = this.props.champ;
     const name = champ.name;
     const rank =
@@ -94,7 +96,8 @@ class FilterableChampTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      positionFilter: "Top"
+      positionFilter: "Top",
+      champs : CHAMPS
     };
     this.handleTableTabChange = this.handleTableTabChange.bind(this);
   }
@@ -103,23 +106,19 @@ class FilterableChampTable extends React.Component {
     this.setState({
       positionFilter: position
     });
-
-    console.log("------ this.state ------");
-    console.log(this.state);
   }
 
   render() {
-    console.log(
-      `render() : this.state.positionFilter = ${this.state.positionFilter}`
-    );
     return (
       <div>
         <TabTable
           positionFilter={this.state.positionFilter}
           onFilterChange={this.handleTableTabChange}
         />
-        <InputForm />
-        <ChampTable 
+        <InputForm 
+          onClick={this.handleChampSubmit}
+        />
+        <ChampTable
           champs={this.props.champs}
           positionFilter={this.state.positionFilter}
         />
