@@ -9,7 +9,7 @@ function createData(number, name, attribute) {
   return { number, name, attribute };
 }
 
-let rows = [
+export let rows = [
   createData("1", "피카츄", "electric", "X"),
   createData("2", "라이츄", "electric", "X"),
   createData("3", "꼬부기", "water", "X"),

@@ -1,12 +1,31 @@
 import React from "react";
+import { createStore } from "redux";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import SimpleTable from "./pokemonRow";
+import SimpleTable, { rows } from "./pokemonRow";
 import TextField from "@material-ui/core/TextField";
+
+function reducer(state, action) {
+  console.log("reducer : " + state + action);
+  if (state === undefined) {
+    return {
+      value: 0,
+      attribute: "electric",
+      inputPokemon: "",
+      pokemonList: rows
+    };
+  }
+  if ((action.type = "CHANGE_ATTRIBUTE")) {
+    state.attribute = "electric";
+  }
+  return state;
+}
+
+var store = createStore(reducer);
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -44,18 +63,18 @@ export default class SimpleTabs extends React.Component {
     this.state = {
       value: 0,
       attribute: "electric",
-      inputPokemon: ""
+      inputPokemon: "",
+      pokemonList: rows
     };
   }
 
   render() {
     const value = this.state.value;
 
-    const handleOnSubmit = (e) => {
+    const handleOnSubmit = e => {
       e.preventDefalut();
       console.log("handleOnSubmit called");
-    }
-
+    };
 
     const handleChange = (event, newValue) => {
       this.setState({
@@ -79,7 +98,13 @@ export default class SimpleTabs extends React.Component {
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
-          <SimpleTable attribute={this.state.attribute}></SimpleTable>
+          <SimpleTable
+            attribute={this.state.attribute}
+            onClick={store.dispatch({
+              type: "CHANGE_ATTRIBUTE",
+              attribute: "electric"
+            })}
+          ></SimpleTable>
         </TabPanel>
         <TabPanel value={value} index={1}>
           <SimpleTable attribute={this.state.attribute}></SimpleTable>
