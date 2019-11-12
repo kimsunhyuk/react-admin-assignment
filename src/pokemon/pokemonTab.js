@@ -19,6 +19,7 @@ function reducer(state, action) {
       pokemonList: rows
     };
   }
+
   if ((action.type = "CHANGE_ATTRIBUTE")) {
     state.attribute = "electric";
   }
@@ -71,11 +72,6 @@ export default class SimpleTabs extends React.Component {
   render() {
     const value = this.state.value;
 
-    const handleOnSubmit = e => {
-      e.preventDefalut();
-      console.log("handleOnSubmit called");
-    };
-
     const handleChange = (event, newValue) => {
       this.setState({
         value: newValue,
@@ -83,6 +79,7 @@ export default class SimpleTabs extends React.Component {
         // inputPokemon: ""
       });
     };
+    
     return (
       <div onClick={this.props.onChange}>
         <AppBar position="static">
@@ -135,11 +132,10 @@ export class BasicTextFields extends React.Component {
   }
 }
 
-// function handleOnSubmit(event){
-//   event.preventDefault();
-//   console.log(event);
-//   const inputPokemon = document.getElementById("standard-basic")
-//   console.log("InputValue is : " + inputPokemon.value);
-// }
+function handleOnSubmit(event){
+  event.preventDefault();
+  const inputPokemon = document.getElementById("standard-basic")
+  console.log("InputValue is : " + inputPokemon.value);
+}
 
 const attributes = ["electric", "water", "phychics", "dragon"];
